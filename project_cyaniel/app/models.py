@@ -64,8 +64,6 @@ class User(UserMixin, db.Model):
     birth_day = db.Column(db.Integer)
     birth_year = db.Column(db.Integer)
     join_date = db.Column(db.DateTime)
-    experience_points = db.Column(db.Integer)  # Refers to proprietary character build points
-    game_points = db.Column(db.Integer)  # Refers to proprietary redeemable game points
     emergency_contact_name = db.Column(db.String(60))
     emergency_contact_number = db.Column(db.String(20))
     password_hash = db.Column(db.String(128), nullable=False)
@@ -116,10 +114,10 @@ class AwardLog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    user = db.relationship("User", back_populates='award_logs')
+    user = db.relationship("User", back_populates='awards')
     # only assigned if award is character-specific
     character_id = db.Column(db.Integer, db.ForeignKey('characters.id'), nullable=True)
-    character = db.relationship("Character", back_populates='award_logs')
+    character = db.relationship("Character", back_populates='awards')
     award_type_id = db.Column(db.Integer, db.ForeignKey('award_types.id'), nullable=False)
     award_type = db.relationship("AwardType")
     award_date = db.Column(db.DateTime, nullable=False)
@@ -319,12 +317,12 @@ class BucketTicket(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     bucket_id = db.Column(db.Integer, db.ForeignKey('buckets.id'), nullable=False)
-    bucket = db.relationship('Bucket')
+    bucket = db.relationship('Bucket', foreign_keys=bucket_id)
     title = db.Column(db.String(128))
     creator_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    creator = db.relationship('User')
+    creator = db.relationship('User', foreign_keys=creator_id)
     assignee_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    assignee = db.ForeignKey('User')
+    assignee = db.ForeignKey('User', foreign_keys=assignee_id)
     status = db.Column(db.Integer)
     created_on = db.Column(db.DateTime)
     last_modified = db.Column(db.DateTime)

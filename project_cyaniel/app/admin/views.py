@@ -41,10 +41,19 @@ def add_character():
     check_admin()
 
     add_character = True
+    sections = [
+        dict(title="General"),
+        dict(title="Attributes & Skills"),
+        dict(title="Equipment"),
+        dict(title="Foci"),
+        dict(title="Perks & Flaws"),
+        dict(title="Powers & Techniques"),
+        dict(title="Notes")]
 
     form = CharacterForm()
     if form.validate_on_submit():
-        character = Character(character_name=form.character_name.data)
+        character = Character(character_name=form.character_name.data,
+                              user=current_user)
 
         try:
             # add characters to the database
@@ -60,7 +69,7 @@ def add_character():
 
     # load characters template
     return render_template('admin/characters/character.html', action="Add",
-                           add_character=add_character, form=form,
+                           add_character=add_character, form=form, sections=sections,
                            title="Add Character")
 
 

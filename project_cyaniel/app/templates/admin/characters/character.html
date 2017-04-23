@@ -13,13 +13,24 @@
     <div class="middle">
       <div class="inner">
         <div class="center">
-            {% if add_character %}
-                <h1>Add Character</h1>
-            {% else %}
-                <h1>Edit Character</h1>
-            {% endif %}
-            <br/>
-            {{ wtf.quick_form(form) }}
+            <div class="tab">
+                {% for section in sections %}
+                <button class="tablinks" onclick="openSection(event, '{{ section.title }}')">{{ section.title }}</button>
+                {% endfor %}
+            </div>
+            {% for section in sections %}
+            <div id="{{ section.title }}" class="tabcontent">
+                <h2>{{ section.title }}</h2>
+                <p>This is a sample section text.</p>
+                {% if add_character %}
+                    <h3>Add Character</h3>
+                {% else %}
+                    <h3>Edit Character</h3>
+                {% endif %}
+
+                {{ wtf.quick_form(form) }}
+            </div>
+            {% endfor %}
         </div>
       </div>
     </div>
