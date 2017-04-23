@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="intro-message">
+                    <div class="parent">
+                    <img class="image1" src="{{ url_for('static', filename='img/larpworks_logo.png') }}" width="600" />
+                    <img class="image2" src="{{ url_for('static', filename='img/larpworks_index2.png') }}" width="775" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
